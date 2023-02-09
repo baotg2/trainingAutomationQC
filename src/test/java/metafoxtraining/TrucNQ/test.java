@@ -7,7 +7,7 @@ public class test {
    public static void main(String[] args)
    {
        WebDriver driver= new ChromeDriver();
-       driver.get("http://testng.org/doc/maven.html");
+       driver.get("");
        driver.manage().window().maximize();
    }
 }
