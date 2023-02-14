@@ -71,13 +71,15 @@ public class CreateBlog {
 
         // Check on the success message
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
-        WebElement flashMessageEdit = driver.findElement(By.xpath("//div[@data-testid='flashMessage']"));
-        flashMessageEdit.isDisplayed();
+        WebElement flashMessage = driver.findElement(By.xpath("//div[@data-testid='flashMessage']"));
+        flashMessage.isDisplayed();
 
         // Delete blog
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid='actionMenuButton']")));
-        WebElement actionMenu1 = driver.findElement(By.xpath("//button[@data-testid='actionMenuButton']"));
-        actionMenu1.click();
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid='actionMenuButton']")));
+        //WebElement actionMenu = driver.findElement(By.xpath("//button[@data-testid='actionMenuButton']"));
+        Thread.sleep(3000);
+        actionMenu.isDisplayed();
+        actionMenu.click();
 
         // Click on Delete action
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='delete']")));
@@ -91,8 +93,9 @@ public class CreateBlog {
 
         //Check success message
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
-        WebElement flashMessageDelete = driver.findElement(By.xpath("//div[@data-testid='flashMessage']"));
-        flashMessageDelete.isDisplayed();
+        //WebElement flashMessageDelete = driver.findElement(By.xpath("//div[@data-testid='flashMessage']"));
+        flashMessage.isDisplayed();
+        //fla.isDisplayed();
 
         driver.quit();
 
