@@ -84,4 +84,23 @@ public class thu_bai {
         msg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
         msg.isDisplayed ();
     }
+
+    public void ReportOption() throws InterruptedException {
+        Thread.sleep (5000);
+        moreaction.isDisplayed ();
+        moreaction.click ();
+        Thread.sleep (4000);
+        WebElement report = driver.findElement (By.xpath ("//div[@data-testid='action menu']//div[@data-testid='report']"));
+        report.isDisplayed ();
+        report.click ();
+        wait = new WebDriverWait(driver, 10);
+        wait.until (ExpectedConditions.visibilityOfElementLocated (By.xpath ("//form[@data-testid='form']//button[@data-testid='buttonSubmit']")));
+        WebElement submit = driver.findElement (By.xpath ("//form[@data-testid='form']//button[@data-testid='buttonSubmit']"));
+        submit.isDisplayed ();
+        submit.click ();
+        msg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
+        msg.isDisplayed ();
+        Thread.sleep (3000);
+        driver.quit ();
+    }
 }
