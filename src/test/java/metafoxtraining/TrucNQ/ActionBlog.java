@@ -1,7 +1,5 @@
 package metafoxtraining.TrucNQ;
 
-
-import jdk.internal.org.xml.sax.Locator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,20 +7,24 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.junit.Assert.assertTrue;
+public class ActionBlog {
+    WebDriver driver ;
+    WebDriverWait wait;
 
-public class CreateBlog {
-    WebDriver driver = new ChromeDriver();
-    WebDriverWait wait = new WebDriverWait(driver,10 );
-    public void createNewBlog() throws InterruptedException {
+    WebElement actionMenu;
+    WebElement buttonSubmit;
+    WebElement flashMessage;
+
+    public void loginSite() throws InterruptedException {
         //Access to the site
+        driver = new ChromeDriver();
         System.setProperty("webdriver.chrome.driver","D:\\Chrome Driver\\chromedriver.exe");
         //WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://preview.metafox.app/");
 
         //Input data to login
-        //WebDriverWait wait = new WebDriverWait(driver,10 );
+        wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@data-testid='inputEmail']")));
 
         WebElement username = driver.findElement(By.xpath("//*[@data-testid='inputEmail']"));
@@ -32,10 +34,12 @@ public class CreateBlog {
         WebElement button = driver.findElement(By.xpath("//*[@data-testid='buttonLogin']"));
         button.click();
         Thread.sleep(5000);
-        driver.get("https://preview.metafox.app/blog/add");
+    }
 
+    public void createBlog() throws InterruptedException{
+        driver.get("https://preview.metafox.app/blog/add");
         Thread.sleep(5000);
-        //create a new  blog
+        wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid='inputTitle']")));
         WebElement titleField = driver.findElement(By.xpath("//input[@data-testid='inputTitle']"));
         titleField.isDisplayed();
@@ -45,18 +49,19 @@ public class CreateBlog {
         desField.sendKeys("Test blog Truc");
 
         //Click on the Submit button
-        WebElement buttonSubmit = driver.findElement(By.xpath("//*[@data-testid='buttonSubmit']"));
+        buttonSubmit = driver.findElement(By.xpath("//*[@data-testid='buttonSubmit']"));
         buttonSubmit.click();
         Thread.sleep(2000);
         // Check on the success message
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
-        WebElement flashMessage = driver.findElement(By.xpath("//div[@data-testid='flashMessage']"));
+        flashMessage = driver.findElement(By.xpath("//div[@data-testid='flashMessage']"));
         flashMessage.isDisplayed();
+    }
 
-        //Edit blog
-        //Click on action menu
+    public void updateBlog() throws InterruptedException{
+        wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid='actionMenuButton']")));
-        WebElement actionMenu = driver.findElement(By.xpath("//button[@data-testid='actionMenuButton']"));
+        actionMenu = driver.findElement(By.xpath("//button[@data-testid='actionMenuButton']"));
         actionMenu.click();
 
         //Click on Edit action
@@ -75,14 +80,15 @@ public class CreateBlog {
         WebElement buttonUpdate = driver.findElement(By.xpath("//button[@data-testid='buttonSubmit']"));
         buttonUpdate.click();
         Thread.sleep(2000);
-        // Check on the success message
-        //flashMessage.isDisplayed();
+        flashMessage = driver.findElement(By.xpath("//div[@data-testid='flashMessage']"));
 
-        // Delete blog
+
+    }
+
+    public void deleteBlog() throws InterruptedException{
+        wait =new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid='actionMenuButton']")));
-        //WebElement actionMenu = driver.findElement(By.xpath("//button[@data-testid='actionMenuButton']"));
-        Thread.sleep(5000);
-        actionMenu.isDisplayed();
+        actionMenu = driver.findElement(By.xpath("//button[@data-testid='actionMenuButton']"));
         actionMenu.click();
 
         // Click on Delete action
@@ -97,8 +103,6 @@ public class CreateBlog {
 
         //Check success message
         flashMessage.isDisplayed();
-
         driver.quit();
-
     }
 }
