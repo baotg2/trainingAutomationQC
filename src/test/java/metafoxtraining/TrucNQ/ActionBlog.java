@@ -1,5 +1,6 @@
 package metafoxtraining.TrucNQ;
 
+import metafoxtraining.TrucNQ.PageObject.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +15,7 @@ public class ActionBlog {
     WebElement actionMenu;
     WebElement buttonSubmit;
     WebElement flashMessage;
-
+    PageObject pageObject = new PageObject(driver);
     public void loginSite() throws InterruptedException {
         //Access to the site
         driver = new ChromeDriver();
@@ -22,17 +23,21 @@ public class ActionBlog {
         //WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://preview.metafox.app/");
-
-        //Input data to login
         wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@data-testid='inputEmail']")));
+        pageObject.loginMetafox("daklak", "12345678");
 
-        WebElement username = driver.findElement(By.xpath("//*[@data-testid='inputEmail']"));
-        username.sendKeys("daklak");
-        WebElement password = driver.findElement(By.xpath("//*[@data-testid='inputPassword']"));
-        password.sendKeys("12345678");
-        WebElement button = driver.findElement(By.xpath("//*[@data-testid='buttonLogin']"));
-        button.click();
+        //Input data to login
+        //wait = new WebDriverWait(driver,10);
+        //pageObject.loginMetafox("daklak", "12345678");
+
+
+//        WebElement username = driver.findElement(By.xpath("//*[@data-testid='inputEmail']"));
+//        username.sendKeys("daklak");
+//        WebElement password = driver.findElement(By.xpath("//*[@data-testid='inputPassword']"));
+//        password.sendKeys("12345678");
+//        WebElement button = driver.findElement(By.xpath("//*[@data-testid='buttonLogin']"));
+//        button.click();
         Thread.sleep(5000);
     }
 
@@ -41,20 +46,22 @@ public class ActionBlog {
         Thread.sleep(5000);
         wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid='inputTitle']")));
-        WebElement titleField = driver.findElement(By.xpath("//input[@data-testid='inputTitle']"));
-        titleField.isDisplayed();
-        titleField.sendKeys("Test blog Truc Delete");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='textbox']")));
-        WebElement desField = driver.findElement(By.xpath("//div[@role='textbox']"));
-        desField.sendKeys("Test blog Truc");
-
-        //Click on the Submit button
-        buttonSubmit = driver.findElement(By.xpath("//*[@data-testid='buttonSubmit']"));
-        buttonSubmit.click();
-        Thread.sleep(2000);
-        // Check on the success message
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
-        flashMessage = driver.findElement(By.xpath("//div[@data-testid='flashMessage']"));
+//        WebElement titleField = driver.findElement(By.xpath("//input[@data-testid='inputTitle']"));
+//        titleField.isDisplayed();
+//        titleField.sendKeys("Test blog Truc Delete");
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='textbox']")));
+//        WebElement desField = driver.findElement(By.xpath("//div[@role='textbox']"));
+//        desField.sendKeys("Test blog Truc");
+//
+//        //Click on the Submit button
+//        buttonSubmit = driver.findElement(By.xpath("//*[@data-testid='buttonSubmit']"));
+//        buttonSubmit.click();
+//        Thread.sleep(2000);
+//        // Check on the success message
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
+//        flashMessage = driver.findElement(By.xpath("//div[@data-testid='flashMessage']"));
+        //PageObject pageObject = new PageObject(driver);
+        pageObject.createBlog("daklak", "12345678");
         flashMessage.isDisplayed();
     }
 
