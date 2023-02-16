@@ -1,9 +1,13 @@
 package metafoxtraining.ThuNM.pageObject;
 
+import org.bouncycastle.LICENSE;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class PageObject {
     WebDriver driver;
@@ -45,12 +49,23 @@ public class PageObject {
         driver.findElement(moreactions).click();
     }
 
-    public void clickUnfeature(){
-        driver.findElement(unfeature).click();
-    }
-
     public void clickFeature(){
         driver.findElement(feature).click();
+    }
+
+    public List<WebElement> unFeature(){
+        return driver.findElements (By.xpath ("//div[@data-testid='action menu']//div[@data-testid='remove_feature']"));
+    }
+    public void clickUnsave(){
+        driver.findElement(unsave).click();
+    }
+
+    public List<WebElement> save(){
+        return driver.findElements (By.xpath ("//div[@data-testid='action menu']//div[@data-testid='save']"));
+    }
+
+    public void clickReport(){
+        driver.findElement(report).click();
     }
 
     public void clickSubmitReport(){
@@ -59,5 +74,6 @@ public class PageObject {
     public void displayMessage(){
         driver.findElement (flagMessage).isDisplayed ();
     }
+
 
 }

@@ -1,6 +1,7 @@
 package metafoxtraining.ThuNM;
 import static org.junit.Assert.*;
 
+import metafoxtraining.ThuNM.pageObject.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,8 +20,7 @@ public class thu_bai {
     WebDriver driver;
     WebDriverWait wait;
 
-    WebElement moreaction;
-    WebElement msg;
+    PageObject pageObject;
     public void getBrownser() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "D:\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver ();
@@ -30,16 +30,8 @@ public class thu_bai {
     public void Login() throws InterruptedException {
         wait = new WebDriverWait(driver, 10);
         wait.until (ExpectedConditions.visibilityOfElementLocated (By.xpath ("//*[@data-testid='inputEmail']")));
-        WebElement username = driver.findElement(By.xpath ("//*[@data-testid='inputEmail']"));
-        username.isDisplayed ();
-        username.sendKeys ("Kaitlyn");
-        System.out.println ("username: " + username.getAttribute ("value"));
-        WebElement password = driver.findElement (By.xpath ("//*[@data-testid='inputPassword']"));
-        password.isDisplayed ();
-        password.sendKeys ("123123123");
-        WebElement signin = driver.findElement (By.xpath ("//*[@data-testid='buttonLogin']"));
-        signin.isDisplayed ();
-        signin.click ();
+        pageObject = new PageObject(driver);
+        pageObject.Login("Kaitlyn","123123123");
     }
 
     public void BlogsApp() throws InterruptedException {
@@ -47,59 +39,45 @@ public class thu_bai {
         driver.get ("https://preview.metafox.app/blog");
     }
     public void FeatureOption() throws InterruptedException {
-        wait = new WebDriverWait(driver, 10);
         wait.until (ExpectedConditions.visibilityOfElementLocated (By.xpath ("//*[@data-testid='actionMenuButton']")));
-        moreaction = driver.findElement (By.xpath ("//*[@data-testid='actionMenuButton']"));
-        moreaction.isDisplayed ();
-        moreaction.click ();
+        pageObject.clickMoreActions ();
         Thread.sleep (4000);
-        List<WebElement> unfeatured = driver.findElements (By.xpath ("//div[@data-testid='action menu']//div[@data-testid='remove_feature']"));
+        List<WebElement> unfeatured = pageObject.unFeature ();
         if(unfeatured.size()!=0){
             unfeatured.get (0).isDisplayed ();
             unfeatured.get (0).click ();
         }
         else {
-            WebElement featured = driver.findElement (By.xpath ("//div[@data-testid='action menu']//div[@data-testid='feature']"));
-            featured.isDisplayed ();
-            featured.click ();
+            pageObject.clickFeature ();
         }
-        msg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
-        msg.isDisplayed ();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
+        pageObject.displayMessage ();
     }
 
     public void SaveOption() throws InterruptedException {
-        Thread.sleep (5000);
-        moreaction.isDisplayed ();
-        moreaction.click ();
+        Thread.sleep (2000);
+        pageObject.clickMoreActions ();
         Thread.sleep (4000);
-        List<WebElement> save = driver.findElements (By.xpath ("//div[@data-testid='action menu']//div[@data-testid='save']"));
+        List<WebElement> save = pageObject.save ();
         if(save.size()!=0){
             save.get (0).isDisplayed ();
             save.get (0).click ();
         }else{
-            WebElement unsave = driver.findElement (By.xpath ("//div[@data-testid='action menu']//div[@data-testid='un-save']"));
-            unsave.isDisplayed ();
-            unsave.click ();
+            pageObject.clickUnsave ();
         }
-        msg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
-        msg.isDisplayed ();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
+        pageObject.displayMessage ();
     }
 
     public void ReportOption() throws InterruptedException {
         Thread.sleep (5000);
-        moreaction.isDisplayed ();
-        moreaction.click ();
+        pageObject.clickMoreActions ();
         Thread.sleep (4000);
-        WebElement report = driver.findElement (By.xpath ("//div[@data-testid='action menu']//div[@data-testid='report']"));
-        report.isDisplayed ();
-        report.click ();
-        wait = new WebDriverWait(driver, 10);
+        pageObject.clickReport ();
         wait.until (ExpectedConditions.visibilityOfElementLocated (By.xpath ("//form[@data-testid='form']//button[@data-testid='buttonSubmit']")));
-        WebElement submit = driver.findElement (By.xpath ("//form[@data-testid='form']//button[@data-testid='buttonSubmit']"));
-        submit.isDisplayed ();
-        submit.click ();
-        msg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
-        msg.isDisplayed ();
+        pageObject.clickSubmitReport ();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
+        pageObject.displayMessage ();
         Thread.sleep (3000);
         driver.quit ();
     }
