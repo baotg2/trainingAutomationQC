@@ -29,8 +29,8 @@ public class thu_bai {
     }
     public void Login() throws InterruptedException {
         wait = new WebDriverWait(driver, 10);
-        wait.until (ExpectedConditions.visibilityOfElementLocated (By.xpath ("//*[@data-testid='inputEmail']")));
         pageObject = new PageObject(driver);
+        wait.until (ExpectedConditions.visibilityOfElementLocated (pageObject.getUsername ()));
         pageObject.Login("Kaitlyn","123123123");
     }
 
@@ -39,7 +39,7 @@ public class thu_bai {
         driver.get ("https://preview.metafox.app/blog");
     }
     public void FeatureOption() throws InterruptedException {
-        wait.until (ExpectedConditions.visibilityOfElementLocated (By.xpath ("//*[@data-testid='actionMenuButton']")));
+        wait.until (ExpectedConditions.visibilityOfElementLocated (pageObject.getMoreactions ()));
         pageObject.clickMoreActions ();
         Thread.sleep (4000);
         List<WebElement> unfeatured = pageObject.unFeature ();
@@ -50,7 +50,7 @@ public class thu_bai {
         else {
             pageObject.clickFeature ();
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pageObject.getFlagMessage ()));
         pageObject.displayMessage ();
     }
 
@@ -65,7 +65,7 @@ public class thu_bai {
         }else{
             pageObject.clickUnsave ();
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pageObject.getFlagMessage()));
         pageObject.displayMessage ();
     }
 
@@ -74,9 +74,9 @@ public class thu_bai {
         pageObject.clickMoreActions ();
         Thread.sleep (4000);
         pageObject.clickReport ();
-        wait.until (ExpectedConditions.visibilityOfElementLocated (By.xpath ("//form[@data-testid='form']//button[@data-testid='buttonSubmit']")));
+        wait.until (ExpectedConditions.visibilityOfElementLocated (pageObject.getSubmitReport ()));
         pageObject.clickSubmitReport ();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='flashMessage']")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pageObject.getFlagMessage ()));
         pageObject.displayMessage ();
         Thread.sleep (3000);
         driver.quit ();

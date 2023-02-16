@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PageObject {
     WebDriver driver;
-    WebDriverWait wait;
+
     By username = By.xpath ("//*[@data-testid='inputEmail']");
     By password = By.xpath ("//*[@data-testid='inputPassword']");
     By loginButton = By.xpath ("//*[@data-testid='buttonLogin']");
@@ -22,6 +22,22 @@ public class PageObject {
     By unsave = By.xpath ("//div[@data-testid='action menu']//div[@data-testid='un-save']");
     By report = By.xpath ("//div[@data-testid='action menu']//div[@data-testid='report']");
     By submitReport = By.xpath ("//form[@data-testid='form']//button[@data-testid='buttonSubmit']");
+
+    public By getUsername () {
+        return username;
+    }
+
+    public By getMoreactions () {
+        return moreactions;
+    }
+
+    public By getSubmitReport () {
+        return submitReport;
+    }
+
+    public By getFlagMessage () {
+        return flagMessage;
+    }
 
     By flagMessage = By.xpath("//div[@data-testid='flashMessage']");
     public PageObject(WebDriver driver){
