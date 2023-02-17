@@ -3,6 +3,7 @@ package metafoxtraining.TrucNQ.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PageObject {
@@ -14,7 +15,13 @@ public class PageObject {
     By title = By.xpath("//input[@data-testid='inputTitle']");
     By textBox = By.xpath("//div[@role='textbox']");
     By buttonSubmit = By.xpath("//*[@data-testid='buttonSubmit']");
-    WebDriverWait wait;
+    By flashMessage = By.xpath("//div[@data-testid='flashMessage']");
+    By actionMenuButton = By.xpath("//button[@data-testid='actionMenuButton']");
+    By actionEdit = By.xpath("//div[@data-testid='edit']");
+
+    By actionDelete = By.xpath("//div[@data-testid='delete']");
+    //WebDriverWait wait;
+
     public PageObject(WebDriver driver){
         this.driver = driver;
     }
@@ -27,6 +34,7 @@ public class PageObject {
     }
 
     public void clickLogin(){
+
         driver.findElement(login).click();
     }
 
@@ -38,20 +46,59 @@ public class PageObject {
     }
 
     public void fillTitle(String strTitle){
+
         driver.findElement(title).sendKeys(strTitle);
     }
 
     public void fillTextBox(String strTextBox){
+
         driver.findElement(textBox).sendKeys(strTextBox);
     }
 
     public void buttonSubmit(){
         driver.findElement(buttonSubmit).click();
     }
-    public void createBlog(String strTitle, String strTextBox){
-        this.fillUsername(strTitle);
-        this.fillPassword(strTextBox);
-        this.clickLogin();
+    public void setFlashMessage(){
+        driver.findElement(flashMessage).isDisplayed();
+
     }
+    public void createBlogMetafox(String strTitle, String strTextBox){
+        this.fillTitle(strTitle);
+        this.fillTextBox(strTextBox);
+        this.buttonSubmit();
+
+    }
+    public void setActionMenuButton(){
+        driver.findElement(actionMenuButton).click();
+    }
+    public void setActionEdit(){
+        driver.findElement(actionEdit).click();
+    }
+
+    public void setTextBox(String strTextBox){
+        driver.findElement(textBox).click();
+        driver.findElement(textBox).clear();
+        driver.findElement(textBox).sendKeys(strTextBox);
+    }
+
+    public void editBlogMetafox(String strTextBox) {
+        this.setActionMenuButton();
+        this.setActionEdit();
+        this.setTextBox(strTextBox);
+        this.buttonSubmit();
+        this.setFlashMessage();
+    }
+
+    public void setActionDelete(){
+        driver.findElement(actionDelete).click();
+    }
+    public void deleteBlogMetafox(){
+        this.setActionMenuButton();
+        this.setActionDelete();
+        this.buttonSubmit();
+        this.setFlashMessage();
+        driver.quit();
+    }
+
 
 }
